@@ -311,9 +311,9 @@ contract VegaCoinCrowdsale is Pausable, StandardToken {
   function sendBounty(address to, uint256 tokens) external onlyOwner returns (bool) {
         uint256 tok = tokens.mul(1e18);
         require ((tok.add(bountyCount))  < MAX_BOUNTY_TOKENS );
+        balances[bountyAddress]= balances[bountyAddress].sub(tok);
         emit Transfer(bountyAddress, to, tok);
         balances[to] = balances[to].add(tok);
-        balances[bountyAddress]= balances[bountyAddress].sub(tok);
         bountyCount = bountyCount.add(tok);
         return true;
     }
